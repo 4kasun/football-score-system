@@ -36,6 +36,11 @@ class ScoreBoardController extends Controller
         return view('scoreboard.update', compact('scoreboard'));
     }
 
+    /**
+     * Show the edit scoreboard form.
+     * 
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function edit()
     {
         // Fetch the most recent broadcasted data from the cache
@@ -52,6 +57,11 @@ class ScoreBoardController extends Controller
         return view('scoreboard.update', compact('scoreboard'));
     }
 
+    /**
+     * Update the scoreboard.
+     *  
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function update(Request $request)
     {
         $request->validate([

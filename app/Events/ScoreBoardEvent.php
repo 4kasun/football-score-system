@@ -28,6 +28,11 @@ class ScoreBoardEvent implements ShouldBroadcast
         $this->status = $status;
     }
 
+    /**
+     * Get the data to broadcast.
+     * 
+     * @return array
+     */
     public function broadcastWith(): array
     {
         return [

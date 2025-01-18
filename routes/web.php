@@ -9,25 +9,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    $teams = "Team A vs Team B";
-    $score = "3 - 2"; // Example score
-    $status = "In Progress";
-
-
-    broadcast(new ScoreBoardEvent($teams, $score, $status));
-    return 'Done';
-});
-
-Route::get('/test-t', function () {
-    $teams = "Team A vs Team B";
-    $score = "4 - 2"; // Example score
-    $status = "In Progress";
-
-
-    broadcast(new ScoreBoardEvent($teams, $score, $status));
-    return 'Done';
-});
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

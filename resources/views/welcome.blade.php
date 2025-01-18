@@ -35,6 +35,14 @@
             font-size: 1.2em;
             color: #555;
         }
+
+        #connection-status-message {
+            display: none;
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -45,9 +53,35 @@
         <div class="score" id="score">0 - 0</div>
         <div class="status" id="status">Waiting for updates...</div>
     </div>
+    <div id="connection-status-message">
+        You are disconnected from the server. Please check your connection.
+    </div>
 </body>
 <script>
     setTimeout(() => {
+        const messageDiv = document.getElementById('connection-status-message');
+        window.Echo.connector.pusher.connection.bind('connected', function() {
+            console.log('Connected to broadcasting service.');
+            messageDiv.style.display = 'none';
+        });
+
+        window.Echo.connector.pusher.connection.bind('disconnected', function() {
+            console.log('Disconnected from broadcasting service.');
+        });
+
+        window.Echo.connector.pusher.connection.bind('connecting', function() {
+            console.log('Connecting to broadcasting service...');
+        });
+
+        window.Echo.connector.pusher.connection.bind('unavailable', function() {
+            console.log('Broadcasting service is unavailable.');
+            messageDiv.style.display = 'block';
+        });
+
+        window.Echo.connector.pusher.connection.bind('failed', function() {
+            console.log('Failed to connect to broadcasting service.');
+        });
+
         const teamsElement = document.getElementById('teams');
         const scoreElement = document.getElementById('score');
         const statusElement = document.getElementById('status');
